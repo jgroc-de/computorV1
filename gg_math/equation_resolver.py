@@ -1,4 +1,4 @@
-from gg_math.sqrt import *
+from gg_math.ft_sqrt import ft_sqrt
 
 
 def compute_delta(a: float, b: float, c: float) -> float:
@@ -6,11 +6,11 @@ def compute_delta(a: float, b: float, c: float) -> float:
 
 
 def solution1(a: float, b: float, c: float, delta: float) -> float:
-    return (-b - sqrt(delta)) / (2 * a)
+    return (-b - ft_sqrt(delta)) / (2 * a)
 
 
 def solution2(a: float, b: float, c: float, delta: float) -> float:
-    return (- b + sqrt(delta)) / (2 * a)
+    return (- b + ft_sqrt(delta)) / (2 * a)
 
 
 def solver_degree_2(a: float, b: float, c: float) -> list:

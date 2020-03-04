@@ -1,1 +1,1 @@
-__all__ = ["equation_resolver", "pow", "rsqt"]
+__all__ = ["equation_resolver", "pow", "ft_sqrt"]
