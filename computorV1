@@ -1,0 +1,11 @@
+#!/usr/bin/python3
+
+import sys
+from main import main
+
+try:
+    main(sys.argv)
+except ValueError as error:
+    print(error)
+except SyntaxError as error:
+    print(error)

@@ -3,45 +3,45 @@ def print_solution(result: float):
         raise ValueError('delta is < 0, no solutions')
     elif len(result) == 1:
         text = 'x = {}'
-        print(text.format(result[0]))
+        print(text.format(round(result[0], 6)))
     else:
         text1 = 'x1 = {}'
         text2 = 'x2 = {}'
-        print(text1.format(result[0]))
-        print(text2.format(result[1]))
+        print(text1.format(round(result[0], 6)))
+        print(text2.format(round(result[1], 6)))
 
 
-def print_degree(tab):
+def get_degree(tab) -> int:
     max = 0
     for i in range(0, 3):
         if tab[i] != 0:
             max = i
-    print('Polynomial degree: ' + str(max))
+    return max
 
 
-def print_reduced_form(tab):
+def get_reduced_form(tab) -> str:
     reduced_form = ''
-    print(tab)
     j = 0
     for i in tab:
         if i != 0:
+            i = round(i, 6)
             if len(reduced_form):
                 if i > 0:
-                    reduced_form += ' + '
+                    reduced_form += ' + ' + str(i)
                 else:
-                    reduced_form += ' - '
-            reduced_form += str(i)
+                    reduced_form += str(i).replace('-', ' - ')
+            else:
+                reduced_form += str(i)
             if j == 1:
                 reduced_form += ' * X'
             elif j == 2:
                 reduced_form += ' * X^2'
         j += 1
 
-    text = 'Reduced form: {} = 0'
-    print(text.format(reduced_form))
+    return 'Reduced form: {} = 0'.format(reduced_form)
 
 
 def gg_print(members_by_degree: dict, result: float):
-    print_reduced_form(members_by_degree)
-    print_degree(members_by_degree)
+    print(get_reduced_form(members_by_degree))
+    print('Polynomial degree: ' + str(get_degree(members_by_degree)))
     print_solution(result)

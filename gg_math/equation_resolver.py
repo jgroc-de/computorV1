@@ -6,11 +6,11 @@ def compute_delta(a: float, b: float, c: float) -> float:
 
 
 def solution1(a: float, b: float, c: float, delta: float) -> float:
-    return (-b - ft_sqrt(delta)) / (2 * a)
+    return ((-b) - (ft_sqrt(delta))) / (2 * a)
 
 
 def solution2(a: float, b: float, c: float, delta: float) -> float:
-    return (- b + ft_sqrt(delta)) / (2 * a)
+    return ((-b) + (ft_sqrt(delta))) / (2 * a)
 
 
 def solver_degree_2(a: float, b: float, c: float) -> list:
