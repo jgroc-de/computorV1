@@ -11,7 +11,7 @@ def is_number(string: str) -> bool:
 
 
 def is_single_variable(equation: str) -> dict:
-    results = re.findall('([a-zA-Z] ?\^ ?\d)', equation)
+    results = re.findall('([X] ?\^ ?\d)', equation)
     if results:
         print(results)
         for item in results:
@@ -23,10 +23,10 @@ def is_single_variable(equation: str) -> dict:
 
 
 def is_valid_string(equation: str):
-    results = re.search('[^0-9*+-^a-zA-Z= ]+', equation)
+    results = re.search('[^0-9*+-^X= ]+', equation)
     if results:
         raise SyntaxError(
-            'String contains forbidden characters. Must be only [0-9]*+-X^=')
+            'String contains forbidden characters. Must be only characters in [0-9]+-X^=')
 
 
 def is_empty(part: str):

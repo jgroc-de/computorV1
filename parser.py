@@ -15,11 +15,6 @@ def get_power_and_coef(equation_part: list, sign: str) -> dict:
                 power += int(tmp[1])
             else:
                 power += 1
-    if power > 2:
-        raise ValueError(
-            'The polynomial degree is stricly greater than 2, I can\'t solve.')
-    elif power < 0:
-        raise ValueError('Negative power is not allowed')
     if sign == '-':
         number = -number
 
@@ -30,33 +25,20 @@ def get_power_and_coef(equation_part: list, sign: str) -> dict:
 def parse_members(equation: str) -> list:
     equation_parts = re.split('([+-])', equation)
     sign = ['+']
-    to_remove = []
-    for i in range(0, len(equation_parts) - 1):
-        part = equation_parts[i]
-        if part == '-' or part == '+':
-            sign.append(part)
-            to_remove.append(i)
-    remove_count = len(to_remove)
-    for i in range(0, remove_count):
-        equation_parts.pop(to_remove.pop())
+    [sign.append(equation_parts[i]) for i in range(0, len(equation_parts)) if equation_parts[i] in ['+', '-']]
+    equation_parts = [item for item in equation_parts if item and item not in ['+', '-']]
     if len(sign) > len(equation_parts):
         sign.remove(0)
     equation_parts = [item.split('*') for item in equation_parts]
     members_by_degree = {0: [0], 1: [0], 2: [0]}
-    while True:
-        if len(equation_parts) == 0:
-            break
-        part = equation_parts.pop()
-        if part == ['']:
-            break
-        if len(sign):
-            tosign = sign.pop()
-        else:
-            tosign = '+'
+    for part in equation_parts:
+        tosign = sign.pop()
         tmp = get_power_and_coef(part, tosign)
+        if tmp[1] > 2 or tmp[1] < 0:
+            raise ValueError('I can\'t manage power > 2 or < 0')
         members_by_degree[tmp[0]].append(tmp[1])
 
-    return [sum(members_by_degree[i]) for i in range(0, 3)]
+    return [sum(item) for item in members_by_degree]
 
 
 def build_equation(equation: str) -> list:
@@ -67,5 +49,5 @@ def build_equation(equation: str) -> list:
     #manque single variable
     leftPart = parse_members(equation_parts[0])
     rightPart = parse_members(equation_parts[1])
-    
-    return [leftPart[i] - rightPart[i] for i in range(0, 3)]
+
+    return [leftPart[i] - rightPart[i] for i in range(0, 2)]

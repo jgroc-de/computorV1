@@ -2,11 +2,14 @@ def print_solution(result: float):
     if len(result) == 0:
         raise ValueError('delta is < 0, no solutions')
     elif len(result) == 1:
-        text = 'x = {}'
-        print(text.format(round(result[0], 6)))
+        if type(result[0]) == str:
+            print(result[0])
+        else:
+            text = 'X = {}'
+            print(text.format(round(result[0], 6)))
     else:
-        text1 = 'x1 = {}'
-        text2 = 'x2 = {}'
+        text1 = 'X1 = {}'
+        text2 = 'X2 = {}'
         print(text1.format(round(result[0], 6)))
         print(text2.format(round(result[1], 6)))
 
@@ -37,7 +40,9 @@ def get_reduced_form(tab) -> str:
             elif j == 2:
                 reduced_form += ' * X^2'
         j += 1
-
+    
+    if len(reduced_form) == 0:
+        reduced_form = '0'
     return 'Reduced form: {} = 0'.format(reduced_form)
 
 

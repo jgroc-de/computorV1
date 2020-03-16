@@ -5,7 +5,10 @@ from main import main
 
 try:
     main(sys.argv)
+    sys.exit(False)
 except ValueError as error:
     print(error)
+    sys.exit(True)
 except SyntaxError as error:
     print(error)
+    sys.exit(True)

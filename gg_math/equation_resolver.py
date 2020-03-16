@@ -23,10 +23,20 @@ def solver_degree_2(a: float, b: float, c: float) -> list:
         return [solution1(a, b, c, delta), solution2(a, b, c, delta)]
 
 
+def solver_degree_2_case_0(b: float, c: float) -> list:
+    if b == 0:
+        return ['Any value of X can solve this equation, enjoy!']
+    return [0, -b / c]
+
+
 def solve(a: float, b: float, c: float) -> list:
     if c != 0:
+        if a == 0:
+            return solver_degree_2_case_0(b, c)
         # manque un sqrt pour float
         return solver_degree_2(a, b, c)
     if b != 0:
         return [- a / b]
-    raise ValueError('Equation of degree 0: nothing to solve')
+    if a != 0:
+        return ["no value of X can solve this, sorry…"]
+    return ["Any value of X can solve this equation, enjoy!"]
