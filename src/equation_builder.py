@@ -1,13 +1,13 @@
 import re
-from misc import throw_exception_if_not_valid, is_number, is_empty
+from src.is_ import throw_exception_if_not_valid, is_float, is_empty
 
 
 def get_power_and_coef(equation_part: list, sign: str) -> dict:
     number = 1
     power = 0
-    
+
     for item in equation_part:
-        if is_number(item):
+        if is_float(item):
             number *= float(item)
         else:
             tmp = item.split('^')
@@ -20,13 +20,16 @@ def get_power_and_coef(equation_part: list, sign: str) -> dict:
 
     return [power, number]
 
+# read number (include read mult and div) then while true,  read + or - and read number
 
 
 def parse_members(equation: str) -> list:
     equation_parts = re.split('([+-])', equation)
     sign = ['+']
-    [sign.append(equation_parts[i]) for i in range(0, len(equation_parts)) if equation_parts[i] in ['+', '-']]
-    equation_parts = [item for item in equation_parts if item and item not in ['+', '-']]
+    [sign.append(equation_parts[i]) for i in range(
+        0, len(equation_parts)) if equation_parts[i] in ['+', '-']]
+    equation_parts = [
+        item for item in equation_parts if item and item not in ['+', '-']]
     if len(sign) > len(equation_parts):
         sign.remove(0)
     equation_parts = [item.split('*') for item in equation_parts]
@@ -41,13 +44,25 @@ def parse_members(equation: str) -> list:
     return [sum(item) for item in members_by_degree]
 
 
-def build_equation(equation: str) -> list:
+def remove_space(equation: str) -> str:
+    return equation.replace(' ', '')
+
+
+def check_validity(equation: str) -> list:
     throw_exception_if_not_valid(equation)
     equation_parts = equation.split('=')
-    is_empty(equation_parts[0])
-    is_empty(equation_parts[1])
-    #manque single variable
-    leftPart = parse_members(equation_parts[0])
-    rightPart = parse_members(equation_parts[1])
+    for item in equation_parts:
+        is_empty(item)
 
-    return [leftPart[i] - rightPart[i] for i in range(0, 2)]
+    return equation_parts
+
+
+def build(equation: str) -> list:
+    equation = remove_space(equation)
+    equation_parts = check_validity(equation)
+    if len(equation_parts) == 2:
+        leftPart = parse_members(equation_parts[0])
+        rightPart = parse_members(equation_parts[1])
+        return [leftPart[i] - rightPart[i] for i in range(0, 2)]
+    else:
+        return equation_parts

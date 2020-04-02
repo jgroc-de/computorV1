@@ -46,7 +46,7 @@ def get_reduced_form(tab) -> str:
     return 'Reduced form: {} = 0'.format(reduced_form)
 
 
-def gg_print(members_by_degree: dict, result: float):
+def ft_print(members_by_degree: dict, result: float):
     print(get_reduced_form(members_by_degree))
     print('Polynomial degree: ' + str(get_degree(members_by_degree)))
     print_solution(result)

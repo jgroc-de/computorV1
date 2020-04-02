@@ -1,14 +1,36 @@
 #!/usr/bin/python3
 
 import sys
-from main import main
+from src import equation_solver, equation_printer, equation_builder
+
+
+def usage():
+    raise(ValueError(
+        'computorV1: compute solution of equation up to degree 2 and basic calculator\
+            \n\ttake only one argument that should be a string\
+            \n\tex: ./computorV1  "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0"'
+    ))
+
+
+def main(argv):
+    number_of_args = len(argv)
+    if number_of_args == 1:
+        usage()
+    elif number_of_args > 2:
+        raise SyntaxError('too many arguments')
+    # cas 0 = 0
+    equationParts = equation_builder.build(argv[1])
+    if len(equation_builder) == 2:
+        result = equation_solver.solve(equationParts)
+        equation_printer.ft_print(equationParts, result)
+    else:
+        #it is a standard calculus
+        print('lol')
+
 
 try:
     main(sys.argv)
     sys.exit(False)
-except ValueError as error:
-    print(error)
-    sys.exit(True)
-except SyntaxError as error:
+except (ValueError, SyntaxError) as error:
     print(error)
     sys.exit(True)

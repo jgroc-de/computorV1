@@ -1,8 +1,8 @@
-from gg_math.ft_sqrt import ft_sqrt
+from src.ft_math import ft_sqrt, ft_pow
 
 
 def compute_delta(a: float, b: float, c: float) -> float:
-    return pow(b, 2) - 4 * a * c
+    return ft_pow(b, 2) - 4 * a * c
 
 
 def solution1(a: float, b: float, c: float, delta: float) -> float:
@@ -29,7 +29,10 @@ def solver_degree_2_case_0(b: float, c: float) -> list:
     return [0, -b / c]
 
 
-def solve(a: float, b: float, c: float) -> list:
+def solve(coef: list) -> list:
+    a = 0
+    b = 0
+    c = 0
     if c != 0:
         if a == 0:
             return solver_degree_2_case_0(b, c)
