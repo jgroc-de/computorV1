@@ -1,0 +1,5 @@
+#!/usr/bin/python3
+
+from ft_test import validity_test, basic_calculator_test
+
+# auto run in each test

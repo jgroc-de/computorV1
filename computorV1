@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
 import sys
-from src import equation_solver, equation_printer, equation_builder
+from src.computor import compute
+from src.CmdParse import CmdParse
 
 
 def usage():
@@ -15,17 +16,23 @@ def usage():
 def main(argv):
     number_of_args = len(argv)
     if number_of_args == 1:
-        usage()
+        try:
+            CmdParse().cmdloop()
+        except KeyboardInterrupt:
+            print()
+            pass
     elif number_of_args > 2:
         raise SyntaxError('too many arguments')
-    # cas 0 = 0
-    equationParts = equation_builder.build(argv[1])
-    if len(equation_builder) == 2:
-        result = equation_solver.solve(equationParts)
-        equation_printer.ft_print(equationParts, result)
+    elif argv[1] == '-help' or argv[1] == '-h':
+        usage()
     else:
-        #it is a standard calculus
-        print('lol')
+        try:
+            result = compute(argv[1])
+            print(result)
+        except ValueError:
+            pass
+        except SyntaxError as error:
+            print(error)
 
 
 try:

@@ -5,11 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python : Fichier actuel",
+            "name": "Python : computorV1",
             "type": "python",
             "request": "launch",
-            "program": "${file}",
-            "console": "integratedTerminal"
+            "program": "computorV1",
+            "console": "integratedTerminal",
+            "args": ["((2 * 2) + 2) * 3"]
         }
     ]
 }

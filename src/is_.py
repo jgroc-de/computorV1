@@ -27,6 +27,12 @@ def count_equal(equation: str):
         raise ValueError('More than ONE sign \'=\' in this equation')
 
 
+def is_number(test: str) -> bool:
+    if test.isdigit() or test == '.':
+        return True
+    return False
+
+
 def throw_exception_if_not_valid(equation: str):
     is_empty(equation)
     is_valid_string(equation)

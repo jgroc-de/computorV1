@@ -1,3 +1,3 @@
 # computorV1
 
-test
+kind of computor in python
