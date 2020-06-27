@@ -7,7 +7,7 @@ class Basic(CalculusInterface):
         self.lexer = Lexer()
         self.parser = Parser()
 
-    def canComputeThis(self, calculus: str) -> bool:
+    def can_compute_this(self, calculus: str) -> bool:
         if calculus.find('=') == -1:
             return True
         return False

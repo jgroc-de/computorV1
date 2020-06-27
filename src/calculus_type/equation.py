@@ -7,10 +7,12 @@ class Equation(CalculusInterface):
     def __init__(self):
         self.basic = Basic()
 
-    def canComputeThis(self, calculus: str) -> bool:
+
+    def can_compute_this(self, calculus: str) -> bool:
         if calculus.count('=') != 1:
             return False        
         return True
+
 
     def compute(self, calculus: str) -> float:
         calculus_parts = calculus.split('=')
@@ -25,8 +27,10 @@ class Equation(CalculusInterface):
 
         return result
 
+
     def __parse_part(self, calculus: str) -> []:
         return []
+
 
     def __solve(self, equation: []) -> float:
         return 0

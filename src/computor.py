@@ -23,7 +23,7 @@ def compute(calculus: str) -> float:
     taken_in_charge = False
     try:
         for c_type in calculus_types:
-            if c_type.canComputeThis(calculus):
+            if c_type.can_compute_this(calculus):
                 result = c_type.compute(calculus)
                 taken_in_charge = True
     except ValueError:
