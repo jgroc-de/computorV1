@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from src.computor import compute
+from src.computor import main
 import argparse
 from src.CmdParse import CmdParse
 
@@ -19,10 +19,4 @@ if __name__ == "__main__":
             print()
             pass
     else:
-        try:
-            result = compute(equation)
-            print(result)
-        except ValueError:
-            pass
-        except SyntaxError as error:
-            print(error)
+        main(equation)

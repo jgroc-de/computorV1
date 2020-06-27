@@ -1,26 +1,36 @@
 from src.lexer.lexer import Lexer
 from src.parser.parser import Parser
+from src.calculus_type import basic, equation
+
+
+calculus_types = [
+    basic.Basic(),
+    equation.Equation(),
+]
+
+
+def main(equation):
+    try:
+        result = compute(equation)
+        print(result)
+    except ValueError:
+        pass
+    except SyntaxError as error:
+        print(error)
 
 
 def compute(calculus: str) -> float:
-    calculus_parts = calculus.split('=')
-    my_lexer = Lexer()
-    my_parser = Parser()
-    result = 0
-    if len(calculus_parts) == 1:
-        tokens = my_lexer.tokenize(calculus)
-        if len(tokens) == 0:
-            raise ValueError('lexer error')
-        try:
-            result = my_parser.parse_recursive(tokens)
-        except ValueError:
-            raise ValueError('parser error')
-    elif len(calculus_parts) == 2:
-        if len(calculus_parts[0]) == 0 or len(calculus_parts[1]) == 0:
-            raise SyntaxError('one part of the equation is empty')
-        pass
-    else:
-        raise SyntaxError('too many sign =')
+    taken_in_charge = False
+    try:
+        for c_type in calculus_types:
+            if c_type.canComputeThis(calculus):
+                result = c_type.compute(calculus)
+                taken_in_charge = True
+    except ValueError:
+        raise ValueError('compute error')
+
+    if not taken_in_charge:
+        raise SyntaxError('cant compute this')
 
     result = round(result, 8)
     #for case -0.0

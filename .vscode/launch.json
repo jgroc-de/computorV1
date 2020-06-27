@@ -9,8 +9,8 @@
             "type": "python",
             "request": "launch",
             "program": "computorV1",
-            "console": "integratedTerminal",
-            "args": ["((2 * 2) + 2) * 3"]
+            "console": "internalConsole",
+            "args": ["((3)+1)"]
         }
     ]
 }
