@@ -1,6 +1,4 @@
 from .calculusInterface import CalculusInterface
-from src.lexer.lexer import Lexer
-from src.parser.parser import Parser
 from .basic import Basic
 
 class Equation(CalculusInterface):
@@ -19,16 +17,21 @@ class Equation(CalculusInterface):
         if len(calculus_parts[0]) == 0 or len(calculus_parts[1]) == 0:
             raise ValueError('one part of the equation is empty')
         degree_results = []
-        for part in calculus_parts:
-            degree_parts = self.__parse_part(part)
-            for part2 in degree_parts:
-                degree_results.append(self.basic.compute(part2))
+        degree_parts = self.__parse_part(part)
+        for part2 in degree_parts:
+            degree_results.append(self.basic.compute(part2))
         result = self.__solve(degree_results)
 
         return result
+    
+    def extract_part(self, part, sign):
+        degree_results = []
+        degree_parts = self.__parse_part(part)
+        for part2 in degree_parts:
+            degree_results.append(self.basic.compute(part2))
 
 
-    def __parse_part(self, calculus: str) -> []:
+    def __parse_part(self, calculus: str) -> list:
         return []
 
 
