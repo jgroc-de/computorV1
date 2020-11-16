@@ -7,17 +7,17 @@ class Equation(CalculusInterface):
 
 
     def can_compute_this(self, calculus: str) -> bool:
-        if calculus.count('=') != 1:
-            return False        
-        return True
+        if calculus.count('=') == 1:
+            return True        
+        return False
 
 
-    def compute(self, calculus: str) -> float:
+    def compute(self, calculus: str, variables: list) -> float:
         calculus_parts = calculus.split('=')
         if len(calculus_parts[0]) == 0 or len(calculus_parts[1]) == 0:
             raise ValueError('one part of the equation is empty')
         degree_results = []
-        degree_parts = self.__parse_part(part)
+        degree_parts = self.__parse_part(calculus_parts)
         for part2 in degree_parts:
             degree_results.append(self.basic.compute(part2))
         result = self.__solve(degree_results)

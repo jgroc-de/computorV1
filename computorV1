@@ -17,6 +17,5 @@ if __name__ == "__main__":
             CmdParse().cmdloop()
         except KeyboardInterrupt:
             print()
-            pass
     else:
         Computor().main(equation)

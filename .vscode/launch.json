@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "computorV1",
             "console": "internalConsole",
-            "args": ["((3)+1)"]
+            "args": ["2=2"]
         }
     ]
 }

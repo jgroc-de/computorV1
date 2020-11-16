@@ -8,7 +8,7 @@ calculus_types = [
 
 class Computor:
     def __init__(self):
-        self.variables = {'X': '2.0', 'Y': '-0.5'}
+        self.variables = {'X': '2.0'}
     
 
     def main(self, equation):
@@ -24,9 +24,9 @@ class Computor:
     def compute(self, calculus: str) -> float:
         taken_in_charge = False
         try:
-            for c_type in calculus_types:
-                if c_type.can_compute_this(calculus):
-                    result = c_type.compute(calculus, self.variables)
+            for calculus_type in calculus_types:
+                if calculus_type.can_compute_this(calculus):
+                    result = calculus_type.compute(calculus, self.variables)
                     taken_in_charge = True
         except ValueError:
             raise ValueError('compute error')
