@@ -1,38 +1,46 @@
-import os
+from src.computor import Computor
 
-from src.computor import compute
+NOK_LINE = '\033[91m'
+END_LINE = '\033[0m'
+OK_LINE = '\033[92m'
+
 
 def assert_equal(test):
     print('                  ', end='\r')
-    print(*test, end = '')
-    out = compute(test[0])
+    print(test[0], end='')
+    out = Computor().compute(test[0])
     if out == test[1]:
-        print('\033[92m' + ' OK' + '\033[0m', end = '')
+        print(' - ' + OK_LINE + 'OK' + END_LINE)
     else:
-        print(" - result: " + str(out), end = '')
-        print('\033[91m' + ' NOK' + '\033[0m', end = '')
+        print(" - result: " + str(out), end='')
+        print(NOK_LINE + ' NOK' + END_LINE, end='')
         print('')
         exit()
 
+
 def assert_throw(test):
     print('                  ', end='\r')
-    print(*test, end = '')
+    print(test[0], end='')
     try:
-        compute(test[0])
+        Computor().compute(test[0])
     except ValueError as error:
         if test[1] == 'value':
-            print('\033[92m' + 'OK' + '\033[0m', end = '')
+            print(' - ' + OK_LINE + 'OK' + END_LINE, end='')
         else:
-            print(error, end = '')
-            print('\033[91m' + 'NOK' + '\033[0m', end = '')
-            print('')
+            print(error, end=' - ')
+            print(NOK_LINE + 'NOK' + END_LINE)
         return
-    print(error, end = '')
-    print('\033[91m' + 'NOK' + '\033[0m', end = '')
-    print('')
+    except SyntaxError as error:
+        if test[1] == 'value':
+            print(' - ' + OK_LINE + 'OK' + END_LINE, end='')
+        else:
+            print(error, end=' - ')
+            print(NOK_LINE + 'NOK' + END_LINE)
+        return
 
 
 def tests():
+    print(' *** validity tests ***')
     basic_op = [
         ["1+1", 2],
         ["1.1+2.2", 3.3],
@@ -58,8 +66,10 @@ def tests():
     ]
     equation_errors = [
         #["1.1.1+2.2", 'value'],
+        ["1+-1", 'value'],
+        ["1*-1", 'value'],
         ["", 'value'],
-        ["lol",  0],
+        ["lol",  'value'],
         ["lol = lol",  0],
         [" 3 * X + 2 * Y = 0",  0],
         [" 3 * X = 2 * Y",  0],
@@ -100,12 +110,10 @@ def tests():
         ["-2 + 3 * X ^ 2 + 4 * X = 0",  0],
         ["-2 + 4 * X + 3 * X ^ 2 = 0",  0],
     ]
-    
+
     for test in basic_op:
         assert_equal(test)
-    print('')
 
-    
     for test in equation_errors:
         assert_throw(test)
 
@@ -117,8 +125,6 @@ def tests():
 
     for test in equation_2:
         assert_equal(test)
-
-    print('')
 
 
 tests()

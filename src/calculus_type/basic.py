@@ -1,6 +1,7 @@
 from .calculusInterface import CalculusInterface
-from .basic_misc.lexer.lexer import Lexer
-from .basic_misc.parser.parser import Parser
+from src.lexer.lexer import Lexer
+from src.parser.parser import Parser
+
 
 class Basic(CalculusInterface):
     def __init__(self):
@@ -12,8 +13,8 @@ class Basic(CalculusInterface):
             return True
         return False
 
-    def compute(self, calculus: str, variables: list) -> float:
-        tokens = self.lexer.tokenize(calculus, variables)
+    def compute(self, calculus: str) -> float:
+        tokens = self.lexer.tokenize(calculus)
         if len(tokens) == 0:
             raise ValueError('lexer error')
         try:

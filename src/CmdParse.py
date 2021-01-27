@@ -1,6 +1,6 @@
-import readline
 import cmd
 from src.computor import Computor
+
 
 class CmdParse(cmd.Cmd):
     prompt = ">>> "

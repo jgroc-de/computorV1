@@ -6,36 +6,33 @@ calculus_types = [
     equation.Equation(),
 ]
 
+
 class Computor:
     def __init__(self):
         self.variables = {'X': '2.0'}
-    
 
     def main(self, equation):
         try:
             result = self.compute(equation)
             print(result)
-        except ValueError:
-            pass
+        except ValueError as error:
+            print(error)
         except SyntaxError as error:
             print(error)
 
-
     def compute(self, calculus: str) -> float:
         taken_in_charge = False
-        try:
-            for calculus_type in calculus_types:
-                if calculus_type.can_compute_this(calculus):
-                    result = calculus_type.compute(calculus, self.variables)
-                    taken_in_charge = True
-        except ValueError:
-            raise ValueError('compute error')
+        result = 0
+        for calculus_type in calculus_types:
+            if calculus_type.can_compute_this(calculus):
+                result = calculus_type.compute(calculus)
+                taken_in_charge = True
 
         if not taken_in_charge:
             raise SyntaxError('cant compute this')
 
-        result = round(result, 8)
-        #for case -0.0
+        #result = round(result, 8)
+        # for case -0.0
         if (result == 0):
             return 0.0
         return result
