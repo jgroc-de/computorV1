@@ -4,16 +4,15 @@ from .providers import number, variable, operator, openingSeparator, closingSepa
 
 
 class Lexer:
-    def tokenize(self, calculus: list) -> list:
+    def tokenize(self, calculus: str) -> list:
         tokens = []
+        calculus = calculus.replace('X', '1*X')
         count = len(calculus)
         try:
             i = 0
             while i < count:
                 current_character = calculus[i]
                 i += 1
-                if current_character == ' ':
-                    continue
                 found = False
                 for provider in self.providers:
                     if provider.isMyResponsability(current_character):
@@ -23,7 +22,7 @@ class Lexer:
                         break
                 if not found:
                     raise ValueError(
-                        calculus + '\n' + (' ' * (i - 1)) + '^: lexer error here -> invalid characters')
+                        '\n' + calculus + '\n' + (' ' * (i - 1)) + '^: lexer error here -> invalid characters')
                 tokens.append(token)
             return tokens
         except ValueError as error:

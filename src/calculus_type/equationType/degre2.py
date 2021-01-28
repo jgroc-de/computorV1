@@ -17,30 +17,6 @@ class Degre2(DegreX):
         self.solution = self.__solve(
             self.equation[2], self.equation[1], self.equation[0])
 
-    def compute_delta(self, degre2: float, degre1: float, degre0: float) -> float:
-        return ft_pow(degre1, 2) - 4 * degre2 * degre0
-
-    def solution1(self, degre2: float, degre1: float, delta: float) -> float:
-        return ((-degre1) - (ft_sqrt(delta))) / (2 * degre2)
-
-    def solution2(self, degre2: float, degre1: float, delta: float) -> float:
-        return ((-degre1) + (ft_sqrt(delta))) / (2 * degre2)
-
-    def solver_degree_2(self, degre2: float, degre1: float, degre0: float) -> list:
-        if self.delta < 0:
-            self.is_imaginaire = True
-            return [0]
-        else:
-            return [self.solution1(degre2, degre1, self.delta), self.solution2(degre2, degre1, self.delta)]
-
-    def __solve(self, degre2: float, degre1: float, degre0: float) -> list:
-        self.delta = self.compute_delta(degre2, degre1, degre0)
-        if degre1 == 0 and degre0 == 0:
-            return []
-        if degre0 == 0:
-            return [0, -degre1 / degre2]
-        return self.solver_degree_2(degre2, degre1, degre0)
-
     def to_string(self) -> str:
         discriminant = self.__get_discriminant()
         if len(self.solution) == 0:
@@ -49,14 +25,38 @@ class Degre2(DegreX):
         text2 = '\n\tX2 = {}'
         return discriminant + text1.format(self.__get_solution1()) + text2.format(self.__get_solution2())
 
+    def __compute_delta(self, degre2: float, degre1: float, degre0: float) -> float:
+        return ft_pow(degre1, 2) - 4 * degre2 * degre0
+
+    def __solution1(self, degre2: float, degre1: float, delta: float) -> float:
+        return ((-degre1) - (ft_sqrt(delta))) / (2 * degre2)
+
+    def __solution2(self, degre2: float, degre1: float, delta: float) -> float:
+        return ((-degre1) + (ft_sqrt(delta))) / (2 * degre2)
+
+    def __solver_degree_2(self, degre2: float, degre1: float, degre0: float) -> list:
+        if self.delta < 0:
+            self.is_imaginaire = True
+            return [0]
+        else:
+            return [self.__solution1(degre2, degre1, self.delta), self.__solution2(degre2, degre1, self.delta)]
+
+    def __solve(self, degre2: float, degre1: float, degre0: float) -> list:
+        self.delta = self.__compute_delta(degre2, degre1, degre0)
+        if degre1 == 0 and degre0 == 0:
+            return []
+        if degre0 == 0:
+            return [0, -degre1 / degre2]
+        return self.__solver_degree_2(degre2, degre1, degre0)
+
     def __get_discriminant(self) -> str:
         if self.delta > 0:
             return "Discriminant is strictly positive, the two solutions are:"
         if self.delta == 0:
             if len(self.solution) == 0:
-                return "Discriminant is null and any value for X will do the job, Enjoy!"
+                return "Discriminant is equal to 0 and any value for X will do the job, Enjoy!"
             else:
-                return "Discriminant is null, the two (same) solutions are:"
+                return "Discriminant is equal to 0, the two (same) solutions are:"
         if self.delta < 0:
             return "Discriminant is strictly negative, the two (imaginary) solutions are:"
 

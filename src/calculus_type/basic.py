@@ -21,9 +21,9 @@ class Basic(CalculusInterface):
             result = 0
             result = self.parser.parse_recursive(tokens, True)
             if len(tokens) != 0:
-                self.parser.setError(tokens[0].error, tokens)
+                self.parser.set_error(tokens[0].error, tokens)
                 raise ValueError('parser error')
         except ValueError:
             raise ValueError('parser error')
 
-        return result
+        return round(result, 8)
