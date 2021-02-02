@@ -4,7 +4,7 @@ from ..token import Token
 
 class Variable(LTypeInterface):
     l_type = 'variable'
-    variables = ['X']
+    variables = ['X', 'Y']
     error = 'not a variable'
 
     def isMyResponsability(self, char) -> bool:

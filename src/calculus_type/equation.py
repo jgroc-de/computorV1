@@ -55,13 +55,10 @@ class Equation(CalculusInterface):
             if len(degree_tokens) == 0:
                 result.append(0)
                 continue
-            try:
-                result.append(self.parser.parse_recursive(degree_tokens, True))
-                if len(degree_tokens) != 0:
-                    self.parser.set_error(
-                        degree_tokens[0].error, degree_tokens)
-                    raise ValueError('parser error')
-            except ValueError:
+            result.append(self.parser.parse_recursive(degree_tokens, True))
+            if len(degree_tokens) != 0:
+                self.parser.set_error(
+                    degree_tokens[0].error, degree_tokens, False)
                 raise ValueError('parser error')
         return result
 

@@ -17,13 +17,10 @@ class Basic(CalculusInterface):
         tokens = self.lexer.tokenize(calculus)
         if len(tokens) == 0:
             raise ValueError('lexer error')
-        try:
-            result = 0
-            result = self.parser.parse_recursive(tokens, True)
-            if len(tokens) != 0:
-                self.parser.set_error(tokens[0].error, tokens)
-                raise ValueError('parser error')
-        except ValueError:
+        result = 0
+        result = self.parser.parse_recursive(tokens, True)
+        if len(tokens) != 0:
+            self.parser.set_error(tokens[0].error, tokens, False)
             raise ValueError('parser error')
 
         return round(result, 8)

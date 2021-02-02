@@ -18,17 +18,21 @@ class Parser:
         self.current_token = False
         self.step = addition.Addition()
 
-    def set_error(self, error, tokens: [Token]):
+    def set_error(self, error, tokens: [Token], reduce=True):
         i = 0
         print('')
         for token in self.used_tokens:
-            print(token.lexeme, end='')
-            i += len(token.lexeme)
-        i -= len(token.lexeme)
+            print(token.lexeme, end=' ')
+            i += len(token.lexeme) + 1
+        if reduce and len(self.used_tokens):
+            i -= len(token.lexeme) + 1
         for token in tokens:
             print(token.lexeme, end='')
         print('')
-        print((' ' * (i)) + '^ parser error: {}'.format(error))
+        if reduce:
+            print((' ' * i) + '^ parser error: {}'.format(error))
+        else:
+            print((' ' * i) + '^ parser error: should be {}'.format(error))
         self.error = True
 
     def __get_next_token(self, tokens: [Token]) -> str:
@@ -54,11 +58,11 @@ class Parser:
                     next_token.lexeme, token.error), tokens)
                 return 0.0
             return result
-        if token.l_type == Variable.l_type:
-            lexeme = 1
-        if not is_float(lexeme):
+        if not is_float(lexeme) and token.l_type != Variable.l_type:
             self.set_error("lexeme {} is not a number".format(lexeme), tokens)
             lexeme = 0
+        if token.l_type == Variable.l_type:
+            lexeme = 1
         return float(lexeme)
 
     def __check_and_compute(self, tokens, step: stepAbstract.StepAbstract):

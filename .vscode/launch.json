@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "computorV1",
             "console": "internalConsole",
-            "args": ["3+X+2*X^2+X+2*X^2=1+2*X^2 + 0*X^4"]
+            "args": ["*"]
         }
     ]
 }

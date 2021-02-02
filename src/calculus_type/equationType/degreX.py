@@ -1,3 +1,6 @@
+from src.ft_math import ft_abs
+
+
 class DegreX:
     equation = []
 
@@ -20,22 +23,25 @@ class DegreX:
                 reduced_equation += self.__format_part(
                     len(reduced_equation), part, power)
             power += 1
-
+        if reduced_equation == "":
+            reduced_equation = "0"
         return "Reduced form: " + reduced_equation + " = 0\n"
 
     def __format_part(self, is_not_empty: int, part: int, power: int) -> str:
         reduced_part = ""
         if is_not_empty:
             if part > 0:
-                reduced_part += ' + ' + str(part)
+                reduced_part += ' + '
             else:
-                reduced_part += str(part).replace('-', ' - ')
-        else:
+                reduced_part += ' - '
+        if ft_abs(part) != 1 or power == 0:
             reduced_part += str(part)
+            if power > 0:
+                reduced_part += ' * '
         if power == 1:
-            reduced_part += ' * X'
+            reduced_part += 'X'
         elif power > 1:
-            reduced_part += ' * X^' + str(power)
+            reduced_part += 'X^' + str(power)
 
         return reduced_part
 

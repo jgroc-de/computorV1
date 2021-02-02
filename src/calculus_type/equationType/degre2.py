@@ -21,8 +21,8 @@ class Degre2(DegreX):
         discriminant = self.__get_discriminant()
         if len(self.solution) == 0:
             return discriminant
-        text1 = '\n\tX1 = {}'
-        text2 = '\n\tX2 = {}'
+        text1 = '\n\tX1 = X = {}'
+        text2 = '\n\tX2 = Y = {}'
         return discriminant + text1.format(self.__get_solution1()) + text2.format(self.__get_solution2())
 
     def __compute_delta(self, degre2: float, degre1: float, degre0: float) -> float:
