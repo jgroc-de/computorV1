@@ -5,12 +5,19 @@ import argparse
 from src.CmdParse import CmdParse
 
 if __name__ == "__main__":
-    usage_message = 'compute solution of equation up to degree 2 and basic calculator.'
-    parser = argparse.ArgumentParser(description=usage_message)
-    parser.add_argument('-i', '--interactiv',
-                        action="store_true", help='interactive mode')
-    parser.add_argument('equation', type=str, nargs="?",
-                        help='equation or calculus to solve. ex: ./computorV1  "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0"')
+    parser = argparse.ArgumentParser(description = 'compute solution of equation up to degree 2 and basic calculator.')
+    parser.add_argument(
+        '-i',
+        '--interactiv',
+        action = "store_true",
+        help = 'interactive mode'
+    )
+    parser.add_argument(
+        'equation',
+        type = str,
+        nargs = "?",
+        help = 'equation or calculus to solve. ex: ./computorV1  "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0"'
+    )
     args = parser.parse_args()
 
     if args.interactiv:
@@ -20,7 +27,7 @@ if __name__ == "__main__":
             print()
     else:
         equation = args.equation
-        if (equation):
-            Computor().main(equation)
+        if equation:
+            Computor().computeAndPrint(equation)
         else:
             parser.print_usage()

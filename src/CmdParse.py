@@ -13,4 +13,4 @@ class CmdParse(cmd.Cmd):
         if line == 'EOF' or line == 'exit' or line == 'exit()':
             print()
             exit()
-        self.computor.main(line)
+        self.computor.computeAndPrint(line)

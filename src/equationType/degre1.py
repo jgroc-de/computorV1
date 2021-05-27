@@ -17,4 +17,4 @@ class Degre1(DegreX):
         if self.solution == 0:
             return ccl + "0"
         else:
-            return ccl + str(self.solution) + " (or " + str(-self.equation[0]) + "/" + str(self.equation[1]) + ")"
+            return ccl + str(round(self.solution, 6)) + " (or " + str(round(-self.equation[0], 6)) + "/" + str(round(self.equation[1], 6)) + ")"

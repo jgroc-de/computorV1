@@ -1,21 +1,22 @@
-from .calculusInterface import CalculusInterface
-from .basic import Basic
-from .equationType import degre0, degre1, degre2, degreX
+from src.solution.solutionFactory import SolutionFactory
+from src.solution.solutionInterface import SolutionInterface
+from .calculusTypeInterface import CalculusTypeInterface
+from src.equationType.equationSolverFactory import EquationSolverFactory
 from src.lexer.lexer import Lexer
 from src.parser.parser import Parser
 
 
-class Equation(CalculusInterface):
-    def __init__(self):
-        self.lexer = Lexer()
-        self.parser = Parser()
+class Equation(CalculusTypeInterface):
+    def __init__(self, lexer: Lexer, parser: Parser, solutionFactory: SolutionFactory):
+        self.__lexer = lexer
+        self.__parser = parser
+        self.__solutionFactory = solutionFactory
+        self.__solverFactory = EquationSolverFactory()
 
     def can_compute_this(self, calculus: str) -> bool:
-        if calculus.count('=') == 1:
-            return True
-        return False
+        return calculus.count('=') == 1
 
-    def compute(self, calculus: str) -> float:
+    def compute(self, calculus: str) -> SolutionInterface:
         calculus_parts = calculus.split('=')
         if len(calculus_parts[0]) == 0 or len(calculus_parts[1]) == 0:
             raise ValueError('one part of the equation is empty')
@@ -25,12 +26,12 @@ class Equation(CalculusInterface):
         reducted_form = self.__add(left_part, right_part)
         reducted_form = self.__reduce(reducted_form)
         print(reducted_form)
-        result = self.__solve(reducted_form)
+        solver = self.__solverFactory.getSolver(reducted_form)
 
-        return result
+        return solver.solve()
 
     def __reduce(self, tab: list) -> list:
-        while len(tab) > 1 and tab[len(tab)-1] == 0:
+        while len(tab) > 1 and tab[len(tab) - 1] == 0:
             tab.pop()
         return tab
 
@@ -47,29 +48,17 @@ class Equation(CalculusInterface):
             result.append(left - right)
         return result + [0, 0]
 
-    def __parse_part(self, part: str):
-        tokens = self.lexer.tokenize(part)
-        part_by_degree = self.parser.cut_variables_bloc(tokens)
+    def __parse_part(self, part: str) -> list:
+        tokens = self.__lexer.tokenize(part)
+        part_by_degree = self.__parser.cut_variables_bloc(tokens)
         result = []
         for degree_tokens in part_by_degree:
             if len(degree_tokens) == 0:
                 result.append(0)
                 continue
-            result.append(self.parser.parse_recursive(degree_tokens, True))
+            result.append(self.__parser.parse_recursive(degree_tokens, True))
             if len(degree_tokens) != 0:
-                self.parser.set_error(
+                self.__parser.set_error(
                     degree_tokens[0].error, degree_tokens, False)
                 raise ValueError('parser error')
         return result
-
-    def __solve(self, equation_parts: list) -> list:
-        if len(equation_parts) == 1:
-            equation = degre0.Degre0(equation_parts)
-        elif len(equation_parts) == 2:
-            equation = degre1.Degre1(equation_parts)
-        elif len(equation_parts) == 3:
-            equation = degre2.Degre2(equation_parts)
-        else:
-            equation = degreX.DegreX(equation_parts)
-        equation.solve()
-        return equation

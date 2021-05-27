@@ -15,7 +15,10 @@ class Degre2(DegreX):
 
     def solve(self):
         self.solution = self.__solve(
-            self.equation[2], self.equation[1], self.equation[0])
+            self.equation[2],
+            self.equation[1],
+            self.equation[0]
+        )
 
     def to_string(self) -> str:
         discriminant = self.__get_discriminant()
