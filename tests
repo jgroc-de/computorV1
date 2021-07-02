@@ -1,5 +1,5 @@
 #!/usr/bin/python3
 
-from ft_test import validity_test, basic_calculator_test
+from ft_test import validity_test, basic_calculator_test, equation_degre0
 
 # auto run in each test

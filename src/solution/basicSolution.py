@@ -8,5 +8,8 @@ class BasicSolution(SolutionInterface):
     def getResult(self):
         return self.__result
     
+    def getResultForHumans(self):
+        return round(self.__result, 6)
+
     def __str__(self) -> str:
-        return str(round(self.__result, 6))
+        return str(self.getResultForHumans())

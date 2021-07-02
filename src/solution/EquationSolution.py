@@ -8,5 +8,8 @@ class EquationSolution(SolutionInterface):
     def getResult(self):
         return self.__result
     
+    def getResultForHumans(self):
+        pass
+    
     def __str__(self) -> str:
         return "to do"

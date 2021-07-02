@@ -8,11 +8,11 @@ OK_LINE = '\033[92m'
 def execute_test(test):
     print(test[0], end=' - ')
     result = Computor().compute(test[0])
-    if result == test[1]:
+    if result.getResult() == test[1]:
         print(OK_LINE + 'OK' + END_LINE)
     else:
         print(NOK_LINE + 'NOK' + END_LINE)
-        print(result, test[1])
+        print(result.getResult(), test[1])
 
 
 def tests():
@@ -46,7 +46,7 @@ def tests():
         ['2 * 0.6', 1.2],
         ['0.5 * 0.6', 0.3],
         ['0.5 / 2', 0.25],
-        ['1 / 3', 0.33333333],
+        ['1 / 3', 0.3333333333333333],
         ['0.3333333333333333 * 3', 1],
         ['1 * 1 / 1 * 1 / (-1) * (-1)', 1],
         ['2 * 2 / 2 * 1 / (-2) * (-1)', 1],

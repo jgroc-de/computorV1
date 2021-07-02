@@ -9,10 +9,10 @@ def assert_equal(test):
     print('                  ', end='\r')
     print(test[0], end='')
     out = Computor().compute(test[0])
-    if out == test[1]:
+    if out.getResultForHumans() == test[1]:
         print(' - ' + OK_LINE + 'OK' + END_LINE)
     else:
-        print(" - result: " + str(out), end='')
+        print(" - result: " + str(out.getResultForHumans()) + " - " + str(test[1]), end='')
         print(NOK_LINE + ' NOK' + END_LINE, end='')
         print('')
         exit()
@@ -47,7 +47,7 @@ def tests():
         ["0.3+0.3+0.3-0.9", 0],
         ["2*4", 8],
         ["2/4", 0.5],
-        ["1/3", 0.33333333],
+        ["1/3", 0.333333],
         ["0+0", 0],
         ["0-0", 0],
         ["2 * 3", 6],
@@ -117,8 +117,8 @@ def tests():
     for test in equation_errors:
         assert_throw(test)
 
-    # for test in equation_0:
-    #    assert_equal(test)
+    for test in equation_0:
+        assert_equal(test)
 
     # for test in equation_1:
     #    assert_equal(test)
